@@ -1,0 +1,26 @@
+{
+  "name": "101321576_lab_test1_chat_app",
+  "version": "1.0.0",
+  "description": "labtest 1 - Full Stack",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lufurt/101321576_lab_test1_chat_app.git"
+  },
+  "author": "Lucas Furtado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lufurt/101321576_lab_test1_chat_app/issues"
+  },
+  "homepage": "https://github.com/lufurt/101321576_lab_test1_chat_app#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.1",
+    "socket.io": "^4.7.4"
+  }
+}
