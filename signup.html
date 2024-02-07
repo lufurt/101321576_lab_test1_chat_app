@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App - Sign Up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-color: #e9ecef;
+            font-family: 'Arial', sans-serif;
+        }
+        .form-container {
+            padding: 40px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 400px; /* Adjust the width as needed */
+        }
+        h2 {
+            color: #343a40;
+            margin-bottom: 30px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .button-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center; /* Center buttons */
+        }
+        .button-group button {
+            width: 100%; /* Full width */
+            padding: 10px 24px;
+            border-radius: 20px; /* Rounded corners */
+            border: none; /* Remove default border */
+            cursor: pointer; /* Mouse pointer on hover */
+            transition: all 0.3s ease; /* Smooth transition */
+            font-size: 16px;
+        }
+        .button-group button:hover {
+            opacity: 0.9; /* Slight opacity for hover effect */
+        }
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            margin-top: 10px; /* Space between buttons */
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        #signupMessage {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+        <div class="form-group">
+            <label for="signupFirstName">First Name:</label>
+            <input type="text" id="signupFirstName" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="signupLastName">Last Name:</label>
+            <input type="text" id="signupLastName" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="signupAge">Age:</label>
+            <input type="number" id="signupAge" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="signupEmail">Email:</label>
+            <input type="email" id="signupEmail" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="signupPassword">Password:</label>
+            <input type="password" id="signupPassword" class="form-control" required>
+        </div>
+        <div id="signupMessage" class="text-success"></div>
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#signupForm').on('submit', function(e){
+            e.preventDefault();
+            const firstName = $('#signupFirstName').val();
+            const lastName = $('#signupLastName').val();
+            const age = $('#signupAge').val();
+            const email = $('#signupEmail').val();
+            const password = $('#signupPassword').val();
+
+            // Validate input fields
+            if (!firstName || !lastName || !age || !email || !password) {
+                $('#signupMessage').text('Please fill in all fields.').addClass('text-danger').removeClass('text-success');
+                return;
+            }
+
+            // Implement AJAX call for signup
+            $.ajax({
+                url: '/signup',
+                method: 'POST',
+                data: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    age: age,
+                    email: email,
+                    password: password
+                },
+                success: function(response) {
+                    const username = response.username; // Use the username returned from the server response
+                    $('#signupMessage').removeClass('text-danger').addClass('text-success').text(`Your registration was successful. Your username is: ${username}`);
+                    // Append the login button after successful registration
+                    $('.button-group').append('<a href="login.html" class="btn btn-success">Login</a>');
+                },
+                error: function(xhr, status, error) {
+                    $('#signupMessage').addClass('text-danger').removeClass('text-success').text(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
